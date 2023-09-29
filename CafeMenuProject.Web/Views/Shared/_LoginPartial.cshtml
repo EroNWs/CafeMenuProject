@@ -1,0 +1,36 @@
+﻿@using CafeMenuProject.Utility.StaticDetails;
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="navbar-nav">
+@if (SignInManager.IsSignedIn(User))
+{
+        var user = await UserManager.GetUserAsync(User);
+
+        if (await UserManager.IsInRoleAsync(user, StaticDetails.Role_Admin))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-warning" asp-area="Admin" asp-controller="MainPage" asp-action="MainPage">Admin Panel</a>
+            </li>
+        
+        }
+
+
+
+    <li class="nav-item">
+            <a class="nav-link text-warning" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+    </li>
+    <li class="nav-item">
+        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="nav-link btn btn-link text-warning">Logout</button>
+        </form>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+            <a class="nav-link text-warning" asp-area="Identity" asp-page="/Account/Login">Login</a>
+    </li>
+}
+</ul>

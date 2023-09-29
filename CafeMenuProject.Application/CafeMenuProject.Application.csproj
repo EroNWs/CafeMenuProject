@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CafeMenuProject.Entities\CafeMenuProject.Domain.csproj" />
+    <ProjectReference Include="..\CafeMenuProject.Mapper\CafeMenuProject.Mapper.csproj" />
+    <ProjectReference Include="..\CafeMenuProject.ViewModel\CafeMenuProject.ViewModel.csproj" />
+  </ItemGroup>
+
 </Project>

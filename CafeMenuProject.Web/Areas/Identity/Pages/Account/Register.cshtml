@@ -1,0 +1,159 @@
+﻿@page
+@using CafeMenuProject.Utility.StaticDetails;
+@model RegisterModel
+
+
+
+<style>
+	.custom-btn {
+		width: 490px;
+		height: 40px;
+		color: #fff;
+		border-radius: 5px;
+		padding: 10px 25px;
+		font-family: 'Lato', sans-serif;
+		font-weight: 500;
+		background: transparent;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		position: relative;
+		display: inline-block;
+		box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
+		outline: none;
+	}
+
+	.btn-13 {
+		background-color: black;
+		background-image: linear-gradient(315deg, #FFC107 0%, black 03c8a8 74%);
+		border: none;
+		z-index: 1;
+	}
+
+		.btn-13:after {
+			position: absolute;
+			content: "";
+			width: 100%;
+			height: 0;
+			bottom: 0;
+			left: 0;
+			z-index: -1;
+			border-radius: 5px;
+			background-color: black;
+			background-image: linear-gradient(315deg, black 0%, #FFC107 74%);
+			box-shadow: -7px -7px 20px 0px #fff9, -4px -4px 5px 0px #fff9, 7px 7px 20px 0px #0002, 4px 4px 5px 0px #0001;
+			transition: all 0.3s ease;
+		}
+
+		.btn-13:hover {
+			color: #fff;
+		}
+
+			.btn-13:hover:after {
+				top: 0;
+				height: 100%;
+			}
+
+		.btn-13:active {
+			top: 2px;
+		}
+
+	.custom-btn.btn-13 {
+		text-decoration: none;
+	}
+
+	.custom-btn.btn-13 {
+		display: block;
+		text-align: center;
+		margin: 0 auto;
+	}
+
+</style>
+
+
+<div class="container col-md-12 p-10 pb-4">
+	<div class="card shadow border-0 mt-4">
+		<div class="card-header bg-warning bg-gradient ml-0 py-4">
+			<div class="row">
+				<div class="col-12 text-center">
+					@if (User.IsInRole(StaticDetails.Role_Admin))
+					{
+						<h2 class="py-2 text-dark">Register (Admin Panel)</h2>
+					}
+					else
+					{
+						<h2 class="py-2 text-dark">Register</h2>
+					}
+				</div>
+			</div>
+		</div>
+		<div class="card-body p-4">
+			<div class="row pt-3">
+				<div class="col-md-12">
+					<form id="registerForm" class="row" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+						<h4 class="border-bottom pb-3 mb-4 text-danger text-center">Create a New Account</h4>
+						<div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+						<div class="form-floating mb-3 col-md-12">
+							<label asp-for="Input.Email" class="control-label">Email Address</label>
+							<input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+							<span asp-validation-for="Input.Email" class="text-danger"></span>
+						</div>
+						<div class="form-floating mb-3 col-md-6">
+							<label asp-for="Input.Name" class="control-label">Name</label>
+							<input asp-for="Input.Name" class="form-control" placeholder="User Name" />
+							<span asp-validation-for="Input.Name" class="text-danger"></span>
+						</div>
+						<div class="form-floating mb-3 col-md-6">
+							<label asp-for="Input.Surname" class="control-label">Surname</label>
+							<input asp-for="Input.Surname" class="form-control" placeholder="Phone Number" />
+							<span asp-validation-for="Input.Surname" class="text-danger"></span>
+						</div>
+						<div class="form-floating mb-3 col-md-6">
+							<label asp-for="Input.UserName" class="control-label">User Name</label>
+							<input asp-for="Input.UserName" class="form-control" placeholder="Street Address" />
+							<span asp-validation-for="Input.UserName" class="text-danger"></span>
+						</div>
+
+						<div class="form-floating mb-3 col-md-6">
+							<label asp-for="Input.Password" class="control-label">Password</label>
+							<input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Password" />
+							<span asp-validation-for="Input.Password" class="text-danger"></span>
+						</div>
+						<div class="form-floating mb-3 col-md-6">
+							<label asp-for="Input.Password" class="control-label">Confirm Password</label>
+							<input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Password" />
+							<span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+						</div>
+
+
+
+						@if (User.IsInRole(StaticDetails.Role_Admin))
+						{
+							<div class="form-floating mb-3 col-md-6">
+								<select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-select">
+									<option disabled selected>-Select Role-</option>
+								</select>
+							</div>
+						}
+						
+						<div class="col-12">
+							<button id="registerSubmit" type="submit" class="w-100 custom-btn btn-13">Register</button>
+						</div>
+					</form>
+				</div>
+
+				<div class="col-12 col-md-6">
+					<p class="divider-text text-center d-flex pt-3">OR</p>
+				
+				</div>
+				<div class="col-lg-12 col-md-12">
+				<a asp-area="Identity" asp-controller="Account" asp-action="Login" class="user_link">
+			
+					<button id="registerSubmit" type="submit" class="w-100 custom-btn btn-13">Login</button>
+				
+				</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
